@@ -86,6 +86,7 @@ export default class GameStateService extends Service {
   takeTurn(row, col) {
     this.board[row][col].ownedBy = this.nextTurn;
     this.board[row][col].isClaimed = true;
+    this.turnCount++;
     this._flipTurn();
     this.mutateIfGameOver();
   }
