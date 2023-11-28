@@ -12,15 +12,6 @@ module('Integration | Component | start-new-button', function (hooks) {
 
     await render(hbs`<StartNewButton />`);
 
-    assert.dom().hasText('');
-
-    // Template block usage:
-    await render(hbs`
-      <StartNewButton>
-        template block text
-      </StartNewButton>
-    `);
-
-    assert.dom().hasText('template block text');
+    assert.dom().hasText('Start new game');
   });
 });

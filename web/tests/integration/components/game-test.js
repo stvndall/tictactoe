@@ -12,15 +12,8 @@ module('Integration | Component | game', function (hooks) {
 
     await render(hbs`<Game />`);
 
-    assert.dom().hasText('');
-
-    // Template block usage:
-    await render(hbs`
-      <Game>
-        template block text
-      </Game>
-    `);
-
-    assert.dom().hasText('template block text');
+    assert
+      .dom()
+      .hasText('Start new game Player 1: Player X Player 2: Played O');
   });
 });

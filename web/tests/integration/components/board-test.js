@@ -12,15 +12,6 @@ module('Integration | Component | board', function (hooks) {
 
     await render(hbs`<Board />`);
 
-    assert.dom().hasText('');
-
-    // Template block usage:
-    await render(hbs`
-      <Board>
-        template block text
-      </Board>
-    `);
-
-    assert.dom().hasText('template block text');
+    assert.dom().hasText('Start new game');
   });
 });
