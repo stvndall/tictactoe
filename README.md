@@ -16,5 +16,16 @@ Beacuse I still don't know ember and rails, I will not start off with testing, a
 **Placeholder**
 
 
+## Thoughts
+
+### Night 1
+Took me a good few hours to get my head around tracking of ember objects. 
+Although I should have realised earlier that the proxy implementation they are using is very basic, likely for speed purposes.
+
+*Created basic Single player experience on emberjs.*
+Nothing fancy, no good shiny front end, still just learning the framework.
+
+I understand what the tests are looking for, but with my 4 hours of experience with ember, I don't know if I quite know how to best setup my components for testing. 
+
 
 
