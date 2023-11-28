@@ -1,4 +1,3 @@
-<button
-  type="button"
-  class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent board-zone"
-/>
+<button type="button" class={{this.className}} {{on "click" (fn this.click @detail)}}>
+  {{@detail.ownedBy}}
+</button>

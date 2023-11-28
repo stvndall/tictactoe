@@ -1,0 +1,14 @@
+import Component from '@glimmer/component';
+import { service } from '@ember/service';
+
+export default class GameComponent extends Component {
+  @service('game-state') gameState;
+
+  get playerX() {
+    return this.gameState.nameX;
+  }
+
+  get playerO() {
+    return this.gameState.nameO;
+  }
+}

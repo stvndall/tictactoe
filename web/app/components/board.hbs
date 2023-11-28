@@ -1,17 +1,10 @@
+<button {{on "click" this.startNew}}>Start new game</button>
 <div class="board-container">
-  <div>
-    <Cell />
-    <Cell />
-    <Cell />
-  </div>
-  <div>
-    <Cell />
-    <Cell />
-    <Cell />
-  </div>
-  <div>
-    <Cell />
-    <Cell />
-    <Cell />
-  </div>
+  {{#each this.board as |row rowIndex|}}
+    <div>
+      {{#each row as |cellRef ColumnIndex|}}
+        <Cell @detail={{cellRef}} />
+      {{/each}}
+    </div>
+  {{/each}}
 </div>
