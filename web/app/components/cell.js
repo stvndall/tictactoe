@@ -21,7 +21,7 @@ export default class CellComponent extends Component {
 
   @action
   tryClaim() {
-    if (this.isClaimed) {
+    if (this.cell.isClaimed) {
       return;
     }
     this.cell.claim();
