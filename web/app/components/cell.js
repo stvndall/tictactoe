@@ -1,23 +1,29 @@
 import Component from '@glimmer/component';
-import { action } from '@ember/object';
+import { action, computed } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+import { service } from '@ember/service';
 
 export default class CellComponent extends Component {
-  get isClaimed() {
-    return this.args.detail.ownedBy !== '';
-  }
+  @service('game-state') gameState;
+  @tracked cell = this.gameState.getCellReference(
+    this.args.row,
+    this.args.column,
+  );
+  @tracked isClaimed = this.cell.isClaimed;
+  @tracked ownedBy = this.cell.ownedBy;
 
+  @computed('cell.isClaimed')
   get className() {
     return `mdl-button mdl-js-button mdl-button--raised board-zone ${
-      this.isClaimed ? 'mdl-button--accent' : 'mdl-button--colored'
+      this.cell.isClaimed ? 'mdl-button--accent' : 'mdl-button--colored'
     }`;
   }
 
   @action
-  click(item) {
-    console.log(item);
+  tryClaim() {
     if (this.isClaimed) {
       return;
     }
-    this.args.detail.claim('O');
+    this.cell.claim();
   }
 }

@@ -13,4 +13,10 @@ export default class BoardComponent extends Component {
     this.gameState.startNew();
     this.board = this.gameState.board;
   }
+
+  @action
+  handleClaim(row, col) {
+    this.gameState.takeTurn(row, col);
+    this.board = this.gameState.board;
+  }
 }
