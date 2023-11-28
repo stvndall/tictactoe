@@ -29,9 +29,7 @@ class CellReference {
 
 export default class GameStateService extends Service {
   startNew() {
-    debugger;
     this.board = this.generateCleanBoard();
-    debugger;
     this.turnCount = 0;
     this.winner = '';
     this.gameOver = false;
@@ -85,7 +83,6 @@ export default class GameStateService extends Service {
   }
 
   takeTurn(row, col) {
-    debugger;
     this.board[row][col].ownedBy = this.nextTurn;
     this.board[row][col].isClaimed = true;
     this._flipTurn();
