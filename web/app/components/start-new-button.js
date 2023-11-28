@@ -5,7 +5,8 @@ import { action } from '@ember/object';
 export default class GameComponent extends Component {
   @service('game-state') gameState;
 
-  startNew = () => {
+  @action
+  startNew() {
     this.gameState.startNew();
-  };
+  }
 }
