@@ -1,7 +1,20 @@
 <div class="game-container">
+  {{#if this.gameState.gameOver}}
+    <div class="game-over">
+      <div class="game-over-message">
+        {{#if this.gameState.isDraw}}
+          It's a draw!
+        {{else}}
+          {{this.gameState.winner}} wins!
+        {{/if}}
+      </div>
+      <StartNewButton />
+    </div>
+  {{else}}
   <Board />
   <div>
-    <div>Player 1: {{this.playerX}}</div>
-    <div>Player 2: {{this.playerO}}</div>
+    <div>Player 1: {{this.gameState.nameX}}</div>
+    <div>Player 2: {{this.gameState.nameO}}</div>
   </div>
+  {{/if}}
 </div>

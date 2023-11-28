@@ -1,65 +1,94 @@
-import Service from "@ember/service";
-import { A } from "@ember/array";
-import { tracked } from "@glimmer/tracking";
+import Service from '@ember/service';
+import { A } from '@ember/array';
+import { tracked } from '@glimmer/tracking';
 
-const tupleCheck = (tuple) => (tuple[0] === tuple[1]) === tuple[2];
+const tupleCheck = (tuple) =>
+  tuple[0] !== '' && tuple[0] === tuple[1] && tuple[1] === tuple[2];
 const rules = [
-  (arr) => [arr[0][0], arr[1][0], arr[2][0]],
-  (arr) => [arr[0][1], arr[1][1], arr[2][1]],
-  (arr) => [arr[0][2], arr[1][2], arr[2][2]],
-  (arr) => [arr[0][0], arr[1][1], arr[2][2]],
-  (arr) => [arr[0][2], arr[1][1], arr[2][0]],
-  (arr) => [arr[0][0], arr[0][1], arr[0][2]],
-  (arr) => [arr[1][0], arr[1][1], arr[1][2]],
-  (arr) => [arr[2][0], arr[2][1], arr[2][2]]
+  (arr) => [arr[0][0].ownedBy, arr[1][0].ownedBy, arr[2][0].ownedBy],
+  (arr) => [arr[0][1].ownedBy, arr[1][1].ownedBy, arr[2][1].ownedBy],
+  (arr) => [arr[0][2].ownedBy, arr[1][2].ownedBy, arr[2][2].ownedBy],
+  (arr) => [arr[0][0].ownedBy, arr[1][1].ownedBy, arr[2][2].ownedBy],
+  (arr) => [arr[0][2].ownedBy, arr[1][1].ownedBy, arr[2][0].ownedBy],
+  (arr) => [arr[0][0].ownedBy, arr[0][1].ownedBy, arr[0][2].ownedBy],
+  (arr) => [arr[1][0].ownedBy, arr[1][1].ownedBy, arr[1][2].ownedBy],
+  (arr) => [arr[2][0].ownedBy, arr[2][1].ownedBy, arr[2][2].ownedBy],
 ];
-export default class GameStateService extends Service {
-  generateCleanBoard = () =>
-    A(
-      [
-        ["x", "", "x"],
-        ["x", "", "x"],
-        ["x", "", "x"]
-      ].map((row, rowIndex) =>
-        A(
-          row.map((ownedBy, colIndex) => ({
-            @tracked ownedBy: ownedBy,
-            @tracked isClaimed: ownedBy !== "",
-            claim: this.takeTurn.bind(this, rowIndex, colIndex)
-          }))
-        )
-      )
-    );
 
-  startNew() {
-    this.board = this.generateCleanBoard();
+class CellReference {
+  constructor(claimedBy, claimFn) {
+    this.ownedBy = claimedBy;
+    this.isClaimed = claimedBy !== '';
+    this.claim = claimFn;
   }
 
-  _checkForWin() {
+  @tracked ownedBy;
+  @tracked isClaimed;
+  claim;
+}
+
+export default class GameStateService extends Service {
+  startNew() {
+    debugger;
+    this.board = this.generateCleanBoard();
+    debugger;
+    this.turnCount = 0;
+    this.winner = '';
+    this.gameOver = false;
+  }
+
+  generateCleanBoard() {
+    return A(
+      [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', ''],
+      ].map((row, rowIndex) => {
+        return A(
+          row.map((ownedBy, colIndex) => {
+            return new CellReference(
+              ownedBy,
+              this.takeTurn.bind(this, rowIndex, colIndex),
+            );
+          }),
+        );
+      }),
+    );
+  }
+
+  mutateIfGameOver() {
     const winningTuple = rules.map((rule) => rule(this.board)).find(tupleCheck);
     if (winningTuple) {
       this.winner = winningTuple[0];
+      this.gameOver = true;
+    } else if (this.turnCount === 9) {
+      this.gameOver = true;
+      this.isDraw = true;
     }
   }
+
   getCellReference(row, col) {
     return this.board[row][col];
   }
-  board = this.generateCleanBoard();
-  @tracked nameX = "John";
-  @tracked nameO = "Jane";
 
-  winner = null;
-  nextTurn = "O";
+  @tracked board = this.generateCleanBoard();
+  @tracked nameX = 'Player X';
+  @tracked nameO = 'Played O';
+  @tracked winner = null;
+  @tracked nextTurn = 'O';
+  @tracked turnCount = 0;
+  @tracked gameOver = false;
+  @tracked isDraw = false;
 
-  takeTurn(row, col) {
-    this.board[row][col].ownedBy = this.nextTurn;
-    this.board[row][col].isClaimed = true;
-    console.log(this.board);
-    this.nameX = "Something else";
-    // this._checkForWin();
+  _flipTurn() {
+    this.nextTurn = this.nextTurn === 'X' ? 'O' : 'X';
   }
 
-  gameOver() {
-    return this.winner !== null;
+  takeTurn(row, col) {
+    debugger;
+    this.board[row][col].ownedBy = this.nextTurn;
+    this.board[row][col].isClaimed = true;
+    this._flipTurn();
+    this.mutateIfGameOver();
   }
 }

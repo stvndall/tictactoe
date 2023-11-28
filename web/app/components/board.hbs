@@ -1,10 +1,9 @@
-<button {{on "click" this.startNew}}>Start new game</button>
+<StartNewButton />
 <div class="board-container">
   {{#each this.board as |row rowIndex|}}
     <div>
       {{#each row as |cell columnIndex|}}
         <Cell @row={{rowIndex}} @column={{ columnIndex}} />
-
       {{/each}}
     </div>
   {{/each}}

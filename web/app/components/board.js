@@ -6,17 +6,15 @@ import { action } from '@ember/object';
 export default class BoardComponent extends Component {
   @service('game-state') gameState;
 
-  @tracked board = this.gameState.board;
-
-  @action
-  startNew() {
-    this.gameState.startNew();
-    this.board = this.gameState.board;
+  get board() {
+    debugger;
+    let board = this.gameState.board;
+    debugger;
+    return board;
   }
 
   @action
   handleClaim(row, col) {
     this.gameState.takeTurn(row, col);
-    this.board = this.gameState.board;
   }
 }
