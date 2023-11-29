@@ -1,6 +1,18 @@
 <h2>recent games</h2>
-<ul class="mdl-list">
-  <li class="mdl-list__item"><span class="mdl-list__item-primary-content">game 1</span></li>
-  <li class="mdl-list__item"><span class="mdl-list__item-primary-content">game 2</span></li>
-  <li class="mdl-list__item"><span class="mdl-list__item-primary-content">game 3</span></li>
-</ul>
+{{#if this.loaded}}
+  <h6>In Progress</h6>
+  <ul class="mdl-list">
+    {{#each this.inProgress as |pg|}}
+      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">game: {{pg.name}} PlayerX: {{pg.playerX}} PlayerO: {{pg.playerO}}  </span></li>
+    {{/each}}
+  </ul>
+  <h6>Completed</h6>
+
+  <ul class="mdl-list">
+    {{#each this.completed as |comp|}}
+      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">game: {{comp.name}} winner: {{comp.winner}}  </span></li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>Loading games</p>
+{{/if}}
