@@ -11,10 +11,11 @@
       <StartNewButton />
     </div>
   {{else}}
-  <Board />
-  <div>
-    <div>Player 1: {{this.gameState.nameX}}</div>
-    <div>Player 2: {{this.gameState.nameO}}</div>
-  </div>
+    <StartNewButton />
+    <Board @board={{this.board}} />
+    <div>
+      <div>Player 1: {{this.gameState.nameX}}</div>
+      <div>Player 2: {{this.gameState.nameO}}</div>
+    </div>
   {{/if}}
 </div>

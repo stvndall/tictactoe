@@ -5,11 +5,7 @@ import { service } from '@ember/service';
 
 export default class CellComponent extends Component {
   @service('game-state') gameState;
-  @tracked cell = this.gameState.getCellReference(
-    this.args.row,
-    this.args.column,
-  );
-  @tracked isClaimed = this.cell.isClaimed;
+  @tracked cell = this.args.cell;
   @tracked ownedBy = this.cell.ownedBy;
 
   get className() {

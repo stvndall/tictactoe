@@ -1,10 +1,12 @@
-<StartNewButton />
 <div class="board-container">
-  {{#each this.board as |row rowIndex|}}
-    <div>
-      {{#each row as |cell columnIndex|}}
-        <Cell @row={{rowIndex}} @column={{ columnIndex}} />
-      {{/each}}
-    </div>
-  {{/each}}
+  <div >
+    {{#each @board as |row rowIndex|}}
+      <div>
+        {{#each row as |cell columnIndex|}}
+          <Cell @cell={{cell}} />
+        {{/each}}
+      </div>
+    {{/each}}
+  </div>
+  {{yield}}
 </div>
