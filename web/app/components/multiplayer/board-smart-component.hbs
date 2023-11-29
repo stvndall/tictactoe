@@ -5,5 +5,10 @@
     <div>PlayerX: {{this.playerX}}</div>
     <div>PlayerO: {{this.playerO}}</div>
     <div>next Turn: {{this.nextTurn}}</div>
+    {{#if this.winner}}
+      <div>Winner: {{this.winner}}</div>
+      <LinkTo @route="multiplayer">go back</LinkTo>
+    {{/if}}
   </div>
+
 </Board>

@@ -9,10 +9,10 @@ export default class CreateNewGameComponent extends Component {
   handleInput(event) {
     switch (event.target.id) {
       case 'multiplayer_gameName':
-        this.playerX = event.target.value;
+        this.gameName = event.target.value;
         break;
       case 'multiplayer_playerXName':
-        this.gameName = event.target.value;
+        this.playerX = event.target.value;
         break;
       default:
         break;

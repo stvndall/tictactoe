@@ -28,7 +28,6 @@ export default class BoardSmartComponent extends Component {
 
   checkingTask = task({ restartable: true }, async () => {
     while (true) {
-      await timeout(300);
       const response = await fetch(
         `http://localhost:3000/games/${this.gameId}`,
       ).then((response) => response.json());
@@ -58,10 +57,10 @@ export default class BoardSmartComponent extends Component {
           }),
         );
       }
-      console.log(response);
       if (response.winner && response.winner !== '') {
         break;
       }
+      await timeout(1000);
     }
   });
 

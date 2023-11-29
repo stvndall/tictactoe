@@ -28,9 +28,20 @@ class GamesController < ApplicationController
       render json: { error: "Invalid move" }, status: :conflict
       return
     end
+    if @game.winner != nil
+      render json: { error: "Game is over" }, status: :forbidden
+      return
+    end
     @game.board[params[:x].to_i][params[:y].to_i] = params[:player]
     @game.nextTurn = @game.nextTurn == 'X' ? 'O' : 'X'
-    @game.winner = determine_if_winner @game.board
+    maybe_winner =  determine_if_winner @game.board
+    if maybe_winner != nil
+      if maybe_winner == 'X'
+        @game.winner = @game.playerX
+      else
+        @game.winner = @game.playerO
+      end
+    end
     @game.save
     render json: @game
 
@@ -49,7 +60,12 @@ class GamesController < ApplicationController
 
   # PATCH/PUT /games/1
   def update
-    if @game.update(new_game)
+    update_with= params.require(:game).permit(:playerO)
+    if @game.playerO != nil
+      render json: {error: "Game already has two players"}, status: :conflict
+      return
+    end
+    if @game.update(update_with)
       render json: @game
     else
       render json: @game.errors, status: :unprocessable_entity
@@ -70,7 +86,7 @@ class GamesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def new_game
-    params.require(:game).permit(:playerX)
+    params.require(:game).permit(:name, :playerX)
   end
 
   def player_params
