@@ -28,4 +28,12 @@ Nothing fancy, no good shiny front end, still just learning the framework.
 I understand what the tests are looking for, but with my 4 hours of experience with ember, I don't know if I quite know how to best setup my components for testing. 
 
 
+### Night 2
+the ruby server was pretty simple to put together, granted it's not doing much.
+emberjs docs are hit and miss. Some of the docs are great, and understandable, while others require you to know ember to understand what is being explained. 
+
+*Created basic run through of client / server game where 2 browsers can play at the same time*
+
+I have still not gone back to the tests, because my basic architecture and design have morphed the more I understand the tools
+
 
