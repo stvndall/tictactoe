@@ -2,6 +2,15 @@
   <div class="mdl-textfield mdl-js-textfield">
     <input
       type="text"
+      id="multiplayer_gameName"
+      class="mdl-textfield__input"
+      {{on "input" this.handleInput}}
+    />
+    <label for="multiplayer_gameName" class="mdl-textfield__label">Game name</label>
+  </div>
+  <div class="mdl-textfield mdl-js-textfield">
+    <input
+      type="text"
       id="multiplayer_playerXName"
       class="mdl-textfield__input"
       {{on "input" this.handleInput}}
@@ -9,7 +18,7 @@
     <label for="multiplayer_playerXName" class="mdl-textfield__label">Your name</label>
   </div>
   <input
-    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
     type="button"
     value="Create new game"
     {{on "click" this.createGame}}
