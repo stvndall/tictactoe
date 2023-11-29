@@ -3,14 +3,13 @@
   <h6>In Progress</h6>
   <ul class="mdl-list">
     {{#each this.inProgress as |pg|}}
-      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">game: {{pg.name}} PlayerX: {{pg.playerX}} PlayerO: {{pg.playerO}}  </span></li>
+      <RecentGames::GameEntry @name={{pg.name}} @playerX={{pg.playerX}} @playerO={{pg.playerO}} @winner={{pg.winner}} />
     {{/each}}
   </ul>
   <h6>Completed</h6>
-
   <ul class="mdl-list">
     {{#each this.completed as |comp|}}
-      <li class="mdl-list__item"><span class="mdl-list__item-primary-content">game: {{comp.name}} winner: {{comp.winner}}  </span></li>
+      <RecentGames::GameEntry @name={{comp.name}} @playerX={{comp.playerX}} @playerO={{comp.playerO}} @winner={{comp.winner}} />
     {{/each}}
   </ul>
 {{else}}
