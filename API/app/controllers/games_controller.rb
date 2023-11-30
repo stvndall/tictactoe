@@ -34,7 +34,7 @@ class GamesController < ApplicationController
     end
     @game.board[params[:x].to_i][params[:y].to_i] = params[:player]
     @game.nextTurn = @game.nextTurn == 'X' ? 'O' : 'X'
-    maybe_winner =  determine_if_winner @game.board
+    maybe_winner = helpers.determine_if_winner @game.board
     if maybe_winner != nil
       if maybe_winner == 'X'
         @game.winner = @game.playerX
@@ -93,26 +93,4 @@ class GamesController < ApplicationController
     params.require(:player)
   end
 
-  def determine_if_winner(board)
-    # check rows
-    board.each do |row|
-      if row.uniq.length == 1 && row.uniq[0] != ''
-        return row.uniq[0]
-      end
-    end
-    # check columns
-    board.transpose.each do |col|
-      if col.uniq.length == 1 && col.uniq[0] != ''
-        return col.uniq[0]
-      end
-    end
-    # check diagonals
-    if board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1] != ''
-      return board[1][1]
-    end
-    if board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] != ''
-      return board[1][1]
-    end
-    nil
-  end
 end

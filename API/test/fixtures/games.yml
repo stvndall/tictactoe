@@ -4,8 +4,30 @@
 # model remove the "{}" from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+complete_not_started:
+  name: game one
+  playerX: player name X
+  playerO: player name O
+  nextTurn: X
+
+
 # column: value
 #
-two: {}
-# column: value
+created_not_joined:
+  name: game one
+  playerX: player name X
+
+X_won:
+  name: game one
+  playerX: player name X
+  playerO: player name O
+  nextTurn: O
+  winner: X
+  board: [['X', 'O', 'X'], ['O', 'X', 'O'], ['X', 'O', 'X']]
+
+O_about_to_win:
+  name: game one
+  playerX: player name X
+  playerO: player name O
+  nextTurn: O
+  board: [['X', 'O', 'X'], ['', 'O', 'X'], ['X', '', '']]

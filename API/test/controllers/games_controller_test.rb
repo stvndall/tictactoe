@@ -2,7 +2,7 @@ require "test_helper"
 
 class GamesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @game = games(:one)
+    @game = games(:complete_not_started)
   end
 
   test "should get index" do
@@ -12,7 +12,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create game" do
     assert_difference("Game.count") do
-      post games_url, params: { game: {  } }, as: :json
+      post games_url, params: { game: { name:"game", playerX:"test Player" } }, as: :json
     end
 
     assert_response :created
@@ -24,8 +24,14 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update game" do
-    patch game_url(@game), params: { game: {  } }, as: :json
+    game = games(:created_not_joined)
+    patch game_url(game), params: { playerO:"Another Player" }, as: :json
     assert_response :success
+  end
+
+  test "should return conflict if another player has already joined the game" do
+    patch game_url(@game), params: { playerO:"Another Player" }, as: :json
+    assert_response :conflict
   end
 
   test "should destroy game" do
@@ -35,4 +41,5 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :no_content
   end
+
 end
