@@ -70,7 +70,20 @@ body {
   padding-top: 13px;
 }
 
-.start-new-button{
+.start-new-button {
   margin: 5px;
 }
 
+.my-stylish-navbar {
+  /*position: relative;*/
+  background: var(--md-sys-color-primary);
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.my-stylish-navbar > a {
+  color: var(--md-sys-color-on-primary);
+  text-decoration: none;
+  font-size: 20px;
+  padding: 10px;
+}

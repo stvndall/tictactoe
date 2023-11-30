@@ -7,8 +7,6 @@ export default class RecentGames extends Component {
 
   @tracked loaded = false;
 
-  shouldShowBreak = (index) => index > 0;
-
   constructor() {
     super(...arguments);
     fetch('http://localhost:3000/games')
