@@ -1,12 +1,12 @@
 <Board @board={{this.board}}>
   <div {{did-insert this.mountedBoard}} >
-    <div>gameId : {{@gameId}}</div>
-    <div>You are: {{@player}}</div>
-    <div>PlayerX: {{this.playerX}}</div>
-    <div>PlayerO: {{this.playerO}}</div>
-    <div>next Turn: {{this.nextTurn}}</div>
+    <h2>gameId : {{@gameId}}</h2>
+    <h2>You are: {{@player}}</h2>
+    <h2>PlayerX: {{this.playerX}}</h2>
+    <h2>PlayerO: {{this.playerO}}</h2>
+    <h2>next Turn: {{this.nextTurn}}</h2>
     {{#if this.winner}}
-      <div>Winner: {{this.winner}}</div>
+      <h2>Winner: {{this.winner}}</h2>
       <LinkTo @route="multiplayer">go back</LinkTo>
     {{/if}}
   </div>

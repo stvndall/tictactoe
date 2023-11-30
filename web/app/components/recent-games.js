@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import A from '@ember/array';
 import { tracked } from '@glimmer/tracking';
 
 export default class RecentGames extends Component {
@@ -7,6 +6,8 @@ export default class RecentGames extends Component {
   @tracked inProgress = [];
 
   @tracked loaded = false;
+
+  shouldShowBreak = (index) => index > 0;
 
   constructor() {
     super(...arguments);

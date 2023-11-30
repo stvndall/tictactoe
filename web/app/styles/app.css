@@ -1,4 +1,9 @@
 /* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+@import url("theme.css");
+
+body {
+  background: var(--md-sys-color-background);
+}
 
 .board-zone {
   width: 100px;
@@ -14,6 +19,7 @@
   flex-direction: column;
   overflow-y: auto;
 }
+
 .board-container {
   display: flex;
   align-items: center;
@@ -21,3 +27,50 @@
   flex-direction: row;
   overflow-y: auto;
 }
+
+.cell {
+  width: 120px;
+  height: 120px;
+  border: 1px solid var(--md-sys-color-on-background);
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell.active {
+  background-color: var(--md-sys-color-primary-container);
+  cursor: pointer;
+}
+
+.cell.X {
+  background-color: lightgreen;
+  cursor: not-allowed;
+}
+
+.cell.O {
+  background-color: lightblue;
+  cursor: not-allowed;
+}
+
+.cell.active:hover {
+  background-color: var(--md-sys-color-secondary-container);
+}
+
+.board {
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 13px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 5px;
+}
+
+.break {
+  padding-top: 13px;
+}
+
+.start-new-button{
+  margin: 5px;
+}
+

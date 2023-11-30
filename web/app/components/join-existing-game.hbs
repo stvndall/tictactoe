@@ -1,24 +1,5 @@
 <div>
-  <div class="mdl-textfield mdl-js-textfield">
-    <input type="text" id="multiplayer_gameid" class="mdl-textfield__input"
-      {{on "input" this.handleInput}} />
-    <label for="multiplayer_gameid" class="mdl-textfield__label">gameId</label>
-
-  </div>
-  <div class="mdl-textfield mdl-js-textfield">
-    <input
-      type="text"
-      id="multiplayer_player_name"
-      class="mdl-textfield__input"
-      {{on "input" this.handleInput}} />
-    <label for="multiplayer_player_name" class="mdl-textfield__label">Player
-      Name</label>
-
-  </div>
-  <button
-    class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-    type="button"
-    {{on "click" this.joinGame}}
-  >Join Game
-  </button>
+  <md-outlined-text-field label="Game Id" id="multiplayer_gameid" {{on "input" this.handleInput}} />
+  <md-outlined-text-field label="Player Name" id="multiplayer_player_name" {{on "input" this.handleInput}} />
+  <md-filled-button {{on "click" this.joinGame}} >Join Game</md-filled-button>
 </div>

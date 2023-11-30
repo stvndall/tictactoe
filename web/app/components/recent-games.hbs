@@ -1,17 +1,9 @@
 <h2>recent games</h2>
 {{#if this.loaded}}
-  <h6>In Progress</h6>
-  <ul class="mdl-list">
-    {{#each this.inProgress as |pg|}}
-      <RecentGames::GameEntry @name={{pg.name}} @playerX={{pg.playerX}} @playerO={{pg.playerO}} @winner={{pg.winner}} />
-    {{/each}}
-  </ul>
-  <h6>Completed</h6>
-  <ul class="mdl-list">
-    {{#each this.completed as |comp|}}
-      <RecentGames::GameEntry @name={{comp.name}} @playerX={{comp.playerX}} @playerO={{comp.playerO}} @winner={{comp.winner}} />
-    {{/each}}
-  </ul>
+  <h3>In Progress</h3>
+  <RecentGames::List @list={{this.inProgress}} @ifEmpty="There are no games in progress"/>
+  <h3>Completed</h3>
+  <RecentGames::List @list={{this.completed}} @ifEmpty="There are no games currently in a completed state"/>
 {{else}}
   <p>Loading games</p>
 {{/if}}

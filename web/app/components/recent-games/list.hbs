@@ -1,0 +1,13 @@
+{{#if @list.length}}
+  <md-list>
+    {{#each @list as |item index|}}
+      {{#if (not-eq index 0)}}
+        <md-divider></md-divider>
+      {{/if}}
+      <RecentGames::GameEntry @name={{item.name}} @playerX={{item.playerX}} @playerO={{item.playerO}}
+                              @winner={{item.winner}} />
+    {{/each}}
+  </md-list>
+{{else}}
+  <p>{{@ifEmpty}}</p>
+{{/if}}
