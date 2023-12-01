@@ -45,4 +45,7 @@ emberjs docs are hit and miss. Some of the docs are great, and understandable, w
 
 I have still not gone back to the tests, because my basic architecture and design have morphed the more I understand the tools
 
+### Night 3 && 4
+I got caught in the reeds a little with looking into more ways to handle activities, like API calls, logging, decent code breakout. All of which I found some great options, however not reasonable to complete within the timeframe. All things I can use if I am to use the stack going forward
 
+I am fairly certain in my very few hours I have worked with these tools, my code is both messy and falls into many anti patterns I'm not aware of yet.
