@@ -87,7 +87,7 @@ class GamesController < ApplicationController
 
   # DELETE /games/1
   def destroy
-    @game.destroy!
+    render json: "deletion of games is not supported", status: :forbidden
   end
 
   private

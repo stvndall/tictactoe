@@ -35,11 +35,11 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy game" do
-    assert_difference("Game.count", -1) do
+    assert_difference("Game.count", 0) do
       delete game_url(@game), as: :json
     end
 
-    assert_response :no_content
+    assert_response :forbidden
   end
 
 end
