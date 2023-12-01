@@ -4,9 +4,9 @@ class GamesController < ApplicationController
   def index
     Rails.logger.debug "fetching all games"
     max_return = 10
-    in_progress = Game.all.where("winner = '' or winner IS NULL").limit(max_return).order(updated_at: desc)
-    completed = Game.all.where("winner != '' and winner IS NOT NULL").limit(max_return - in_progress.length).order(updated_at: desc)
-    Rails.logger.debugger "returning #{in_progress.length} in progress games and #{completed.length} completed games"
+    in_progress = Game.all.where("winner = '' or winner IS NULL").limit(max_return).order("updated_at DESC")
+    completed = Game.all.where("winner != '' and winner IS NOT NULL").limit(max_return - in_progress.length).order("updated_at DESC")
+    Rails.logger.debug "returning #{in_progress.length} in progress games and #{completed.length} completed games"
     # reduce into 2 groups one where winner in blank and one where winner is set
     split = {
       inProgress: in_progress,
