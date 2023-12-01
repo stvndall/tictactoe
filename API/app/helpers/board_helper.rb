@@ -14,12 +14,24 @@ module BoardHelper
       end
     end
     # check diagonals
-    if board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1] != ''
-      return board[1][1]
-    end
-    if board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] != ''
-      return board[1][1]
+    if board[1][1] != ''
+      if board[0][0] == board[1][1] && board[1][1] == board[2][2]
+        return board[1][1]
+      end
+      if board[0][2] == board[1][1] && board[1][1] == board[2][0]
+        return board[1][1]
+      end
     end
     nil
   end
+
+  def determine_if_draw(board)
+    board.each do |row|
+      if row.include? ''
+        return false
+      end
+    end
+    true
+  end
+
 end

@@ -5,8 +5,8 @@ class GamesController < ApplicationController
   def index
     Rails.logger.debug "fetching all games"
     max_return = 10
-    in_progress = Game.all.where("winner = '' or winner IS NULL").limit(max_return).order("updated_at DESC")
-    completed = Game.all.where("winner != '' and winner IS NOT NULL").limit(max_return - in_progress.length).order("updated_at DESC")
+    in_progress = Game.all.where("winner = '' or winner IS NULL OR is_draw != true").limit(max_return).order("updated_at DESC")
+    completed = Game.all.where("winner != '' and winner IS NOT NULL or is_draw = true").limit(max_return - in_progress.length).order("updated_at DESC")
     Rails.logger.debug "returning #{in_progress.length} in progress games and #{completed.length} completed games"
     # reduce into 2 groups one where winner in blank and one where winner is set
     split = {
@@ -50,6 +50,8 @@ class GamesController < ApplicationController
       else
         @game.winner = @game.playerO
       end
+    elsif determine_if_draw @game.board
+      @game.is_draw = true
     end
     @game.save
     render json: @game
