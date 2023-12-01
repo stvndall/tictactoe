@@ -88,13 +88,13 @@ body {
   padding: 10px;
 }
 
-.border-control{
+.border-control {
   border: 2px solid var(--md-sys-color-primary-container);
   border-radius: 5px;
   padding: 10px;
 }
 
-.shoutout{
+.shoutout {
   color: var(--md-sys-color-primary);
   font-size: 2em;
   font-weight: bold;
