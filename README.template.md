@@ -15,15 +15,67 @@ Beacuse I still don't know ember and rails, I will not start off with testing, a
 
 ### Create a new game
 
-![diagram](./README-1.svg)
+```mermaid
+sequenceDiagram
+    participant Website 
+    participant API
+    participant DB
+    Website->>API:Create new game
+    API->>DB:Create new game
+    DB-->>API:Created record containing ID
+    API-->>Website: Created record
+    Website-->Website: Navigate to game screen
+```
 
 ### Join an Existing Game
 
-![diagram](./README-2.svg)
+```mermaid
+sequenceDiagram
+    participant Website 
+    participant API
+    participant DB
+    Website->>API:Join game
+    API->>DB: Fetch Game
+    DB-->>API: Game
+    alt Game PlayerO is already set
+        API-->>Website: ERROR
+    else
+        API->>DB:Update PlayerO with given Details
+        API-->>Website: Return Successful record update
+        Website-->Website: Navigate to game screen
+    end
+```
 
 ### Game loop
 
-![diagram](./README-3.svg)
+```mermaid
+sequenceDiagram
+    participant Website 
+    participant API
+    participant DB
+    loop Until Game is over
+    Website->>API: Get Current State of game
+    Website-->Website:Update game state to match received
+        alt Players turn
+            Website->>API:Claim Piece of baord
+            API-->DB:Fetch game
+            activate API
+            DB-->>API:Game
+            alt Cell is already claimed
+                API-->>Website:ERROR
+            else 
+                API-->>API:Determine if winner yet
+                alt if no winner
+                    API-->>API:Determine if draw
+                end
+                API->>DB: Save updated Record
+                API-->>Website: Successfully updated payload
+                Website-->Website: Update Board accordingly
+            deactivate API
+            end
+        end
+    end 
+```
 
 ## Thoughts
 
