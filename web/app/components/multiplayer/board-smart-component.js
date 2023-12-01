@@ -30,32 +30,7 @@ export default class BoardSmartComponent extends Component {
   checkingTask = task({ restartable: true }, async () => {
     while (true) {
       const response = await this.API.fetchGameState(this.gameId);
-      this.playerX = response.playerX;
-      this.playerO = response.playerO;
-      this.winner = response.winner;
-      this.nextTurn = response.nextTurn;
-      if (this.firstLoadComplete) {
-        for (let r = 0; r < response.board.length; r++) {
-          for (let c = 0; c < r.length; c++) {
-            if (this.board[r][c].ownedBy !== response.board[r][c]) {
-              this.board[r][c].ownedBy = response.board[r][c];
-            }
-          }
-        }
-      } else {
-        this.board = A(
-          response.board.map((row, rowIndex) => {
-            return A(
-              row.map((ownedBy, colIndex) => {
-                return new CellReference(
-                  ownedBy,
-                  this.takeTurn.bind(this, rowIndex, colIndex),
-                );
-              }),
-            );
-          }),
-        );
-      }
+      this.updateGameState(response);
       if (response.winner && response.winner !== '') {
         break;
       }
@@ -72,12 +47,47 @@ export default class BoardSmartComponent extends Component {
     this.checkingTask.perform();
   }
 
+  updateGameState(newGameState) {
+    this.playerX = newGameState.playerX;
+    this.playerO = newGameState.playerO;
+    this.winner = newGameState.winner;
+    this.nextTurn = newGameState.nextTurn;
+    if (this.firstLoadComplete) {
+      for (let r = 0; r < newGameState.board.length; r++) {
+        for (let c = 0; c < r.length; c++) {
+          if (this.board[r][c].ownedBy !== newGameState.board[r][c]) {
+            this.board[r][c].ownedBy = newGameState.board[r][c];
+          }
+        }
+      }
+    } else {
+      this.board = A(
+        newGameState.board.map((row, rowIndex) => {
+          return A(
+            row.map((ownedBy, colIndex) => {
+              return new CellReference(
+                ownedBy,
+                this.takeTurn.bind(this, rowIndex, colIndex),
+              );
+            }),
+          );
+        }),
+      );
+    }
+  }
+
   @action
   async takeTurn(row, col) {
     if (this.nextTurn !== this.player) {
       alert("It's not your turn!");
       return;
     }
-    this.API.tryClaim(this.gameId, row, col, this.player);
+    const gameState = await this.API.tryClaim(
+      this.gameId,
+      row,
+      col,
+      this.player,
+    );
+    this.updateGameState(gameState);
   }
 }

@@ -34,6 +34,7 @@ export default class GameStateService extends Service {
     this.winner = '';
     this.gameOver = false;
     this.nextTurn = 'X';
+    this.isDraw = false;
   }
 
   generateCleanBoard() {
@@ -72,7 +73,7 @@ export default class GameStateService extends Service {
 
   @tracked board = this.generateCleanBoard();
   @tracked nameX = 'Player X';
-  @tracked nameO = 'Played O';
+  @tracked nameO = 'Player O';
   @tracked winner = null;
   @tracked nextTurn = 'X';
   @tracked turnCount = 0;

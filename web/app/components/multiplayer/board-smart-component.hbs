@@ -1,12 +1,13 @@
+<h1>Welcome to tic-tac-toe multiplayer!</h1>
 <Board @board={{this.board}}>
   <div {{did-insert this.mountedBoard}} >
-    <h2>gameId : {{@gameId}}</h2>
-    <h2>You are: {{@player}}</h2>
-    <h2>PlayerX: {{this.playerX}}</h2>
-    <h2>PlayerO: {{this.playerO}}</h2>
-    <h2>next Turn: {{this.nextTurn}}</h2>
+    <h3>gameId : {{@gameId}}</h3>
+    <h3>You are: {{@player}}</h3>
+    <h3>PlayerX: {{this.playerX}}</h3>
+    <h3>PlayerO: {{this.playerO}}</h3>
+    <h3>next Turn: {{this.nextTurn}}</h3>
     {{#if this.winner}}
-      <h2>Winner: {{this.winner}}</h2>
+      <h1 class="shoutout">Winner: {{this.winner}}</h1>
       <LinkTo @route="multiplayer">go back</LinkTo>
     {{/if}}
   </div>

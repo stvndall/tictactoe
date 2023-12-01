@@ -87,3 +87,16 @@ body {
   font-size: 20px;
   padding: 10px;
 }
+
+.border-control{
+  border: 2px solid var(--md-sys-color-primary-container);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.shoutout{
+  color: var(--md-sys-color-primary);
+  font-size: 2em;
+  font-weight: bold;
+  font-family: "SFMono-Light", monospace:
+}
