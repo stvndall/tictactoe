@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  include BoardHelper
   before_action :set_game, only: %i[ show update destroy ]
   # GET /games
   def index
@@ -17,6 +18,7 @@ class GamesController < ApplicationController
 
   # GET /games/1
   def show
+    Rails.logger.debug "fetching game #{@id}"
     render json: @game
   end
 
@@ -40,7 +42,7 @@ class GamesController < ApplicationController
     end
     @game.board[row][col] = params[:player]
     @game.nextTurn = @game.nextTurn == 'X' ? 'O' : 'X'
-    maybe_winner = helpers.determine_if_winner @game.board
+    maybe_winner = determine_if_winner @game.board
     Rails.logger.debug "maybe winner #{maybe_winner}"
     if maybe_winner != nil
       if maybe_winner == 'X'
