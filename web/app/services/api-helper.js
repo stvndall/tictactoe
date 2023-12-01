@@ -6,6 +6,7 @@ class ApiWrapper {
   constructor(baseUrl) {
     this.BASE_URL = baseUrl;
   }
+
   async fetchFromApi(path, options) {
     const url = `${this.BASE_URL}/${path}`;
     const response = await fetch(url, options);
@@ -51,19 +52,29 @@ export default class ApiHelperService extends Service {
     super(...arguments);
     this.api = new ApiWrapper(ENV.API_HOST);
   }
+
   async joinGame(gameId, playerOName) {
-    return await this.api.patch(`/games/${gameId}`, {
+    return await this.api.patch(`games/${gameId}`, {
       playerO: playerOName,
     });
   }
 
-  async fetchRecentGames() {
-    return await this.api.get('/games');
+  async fetchGameState(gameId) {
+    return await this.api.get(`games/${gameId}`);
   }
+
+  async fetchRecentGames() {
+    return await this.api.get('games');
+  }
+
   async createGame(gameName, playerXName) {
-    return await this.api.post('/games', {
+    return await this.api.post('games', {
       name: gameName,
       playerX: playerXName,
     });
+  }
+
+  async tryClaim(gameId, row, col, player) {
+    return this.api.patch(`games/${gameId}/${row}/${col}`, { player });
   }
 }

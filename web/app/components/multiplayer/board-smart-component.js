@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { task, timeout } from 'ember-concurrency';
 import { action } from '@ember/object';
 import { A } from '@ember/array';
+import { service } from '@ember/service';
 
 class CellReference {
   constructor(claimedBy, claimFn) {
@@ -17,6 +18,7 @@ class CellReference {
 }
 
 export default class BoardSmartComponent extends Component {
+  @service('api_helper') API;
   gameId = this.args.gameId;
   player = this.args.player;
   @tracked board = [];
@@ -25,12 +27,9 @@ export default class BoardSmartComponent extends Component {
   @tracked nextTurn = '';
   @tracked winner = '';
   @tracked firstLoadComplete = false;
-
   checkingTask = task({ restartable: true }, async () => {
     while (true) {
-      const response = await fetch(`/games/${this.gameId}`).then((response) =>
-        response.json(),
-      );
+      const response = await this.API.fetchGameState(this.gameId);
       this.playerX = response.playerX;
       this.playerO = response.playerO;
       this.winner = response.winner;
@@ -79,12 +78,6 @@ export default class BoardSmartComponent extends Component {
       alert("It's not your turn!");
       return;
     }
-    await fetch(`/games/${this.gameId}/${row}/${col}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ player: this.player }),
-    });
+    this.API.tryClaim(this.gameId, row, col, this.player);
   }
 }
