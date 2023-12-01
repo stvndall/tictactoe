@@ -2,6 +2,7 @@ class GamesController < ApplicationController
   before_action :set_game, only: %i[ show update destroy ]
   # GET /games
   def index
+    Rails.logger.debug "fetching all games"
     max_return = 10
     in_progress = Game.all.where("winner = '' or winner IS NULL").limit(max_return)
     completed = Game.all.where("winner != '' and winner IS NOT NULL").limit(max_return - in_progress.length)
@@ -25,16 +26,19 @@ class GamesController < ApplicationController
     set_game
     value = @game.board[params[:x].to_i][params[:y].to_i]
     if value != ''
+      Rails.logger.debug "attempted to update a board value that was already claimed - #{@id} #{row} #{col} current value #{value} "
       render json: { error: "Invalid move" }, status: :conflict
       return
     end
     if @game.winner != nil
+      Rails.logger.debug "attempted to update a board that was already won - #{@id}"
       render json: { error: "Game is over" }, status: :forbidden
       return
     end
     @game.board[params[:x].to_i][params[:y].to_i] = params[:player]
     @game.nextTurn = @game.nextTurn == 'X' ? 'O' : 'X'
     maybe_winner = helpers.determine_if_winner @game.board
+    Rails.logger.debug "maybe winner #{maybe_winner}"
     if maybe_winner != nil
       if maybe_winner == 'X'
         @game.winner = @game.playerX
@@ -49,11 +53,13 @@ class GamesController < ApplicationController
 
   # POST /games
   def create
+    Rails.logger.debug "creating a new game"
     @game = Game.new(new_game)
 
     if @game.save
       render json: @game, status: :created, location: @game
     else
+      Rails.logger.error "failed to create a new game: #{@game.errors}"
       render json: @game.errors, status: :unprocessable_entity
     end
   end
@@ -68,6 +74,7 @@ class GamesController < ApplicationController
     if @game.update(update_with)
       render json: @game
     else
+      Rails.logger.error "failed to join a game #{@id} : #{@game.errors}"
       render json: @game.errors, status: :unprocessable_entity
     end
   end
@@ -81,7 +88,8 @@ class GamesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_game
-    @game = Game.find(params[:id])
+    @id = params[:id]
+    @game = Game.find(@id)
   end
 
   # Only allow a list of trusted parameters through.
