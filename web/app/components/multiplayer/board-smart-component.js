@@ -28,9 +28,9 @@ export default class BoardSmartComponent extends Component {
 
   checkingTask = task({ restartable: true }, async () => {
     while (true) {
-      const response = await fetch(
-        `http://localhost:3000/games/${this.gameId}`,
-      ).then((response) => response.json());
+      const response = await fetch(`/games/${this.gameId}`).then((response) =>
+        response.json(),
+      );
       this.playerX = response.playerX;
       this.playerO = response.playerO;
       this.winner = response.winner;
@@ -79,7 +79,7 @@ export default class BoardSmartComponent extends Component {
       alert("It's not your turn!");
       return;
     }
-    await fetch(`http://localhost:3000/games/${this.gameId}/${row}/${col}`, {
+    await fetch(`/games/${this.gameId}/${row}/${col}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

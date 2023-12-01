@@ -1,10 +1,13 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { service } from '@ember/service';
 
 export default class CreateNewGameComponent extends Component {
+  @service('api_helper') API;
   @tracked playerX = '';
   @tracked gameName = '';
+
   @action
   handleInput(event) {
     switch (event.target.id) {
@@ -27,16 +30,7 @@ export default class CreateNewGameComponent extends Component {
       );
       return;
     }
-    const reply = await fetch('http://localhost:3000/games', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.gameName,
-        playerX: this.playerX,
-      }),
-    }).then((response) => response.json());
+    const reply = await this.API.createGame(this.gameName, this.playerX);
     //stupid hack because I couldn't figure out how to programmatically transition to a new route
     history.pushState(null, null, `/game/${reply.id}/X`);
     history.go(0);
