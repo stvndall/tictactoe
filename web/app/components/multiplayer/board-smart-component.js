@@ -26,14 +26,12 @@ export default class BoardSmartComponent extends Component {
   @tracked playerO = '';
   @tracked nextTurn = '';
   @tracked winner = '';
+  @tracked isDraw = false;
   @tracked firstLoadComplete = false;
   checkingTask = task({ restartable: true }, async () => {
-    while (true) {
+    while (this.continueLoop) {
       const response = await this.API.fetchGameState(this.gameId);
       this.updateGameState(response);
-      if (response.winner && response.winner !== '') {
-        break;
-      }
       await timeout(1000);
     }
   });
@@ -47,11 +45,16 @@ export default class BoardSmartComponent extends Component {
     this.checkingTask.perform();
   }
 
+  get continueLoop() {
+    return !((this.winner && this.winner !== '') || this.isDraw);
+  }
+
   updateGameState(newGameState) {
     this.playerX = newGameState.playerX;
     this.playerO = newGameState.playerO;
     this.winner = newGameState.winner;
     this.nextTurn = newGameState.nextTurn;
+    this.isDraw = newGameState.is_draw;
     if (this.firstLoadComplete) {
       for (let r = 0; r < newGameState.board.length; r++) {
         for (let c = 0; c < r.length; c++) {

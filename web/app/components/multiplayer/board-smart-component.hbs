@@ -10,6 +10,10 @@
       <h1 class="shoutout">Winner: {{this.winner}}</h1>
       <LinkTo @route="multiplayer">go back</LinkTo>
     {{/if}}
+    {{#if this.isDraw}}
+      <h1 class="shoutout">It's a draw!</h1>
+      <LinkTo @route="multiplayer">go back</LinkTo>
+    {{/if}}
   </div>
 
 </Board>
