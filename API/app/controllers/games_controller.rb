@@ -24,7 +24,10 @@ class GamesController < ApplicationController
 
   def update_board
     set_game
-    value = @game.board[params[:x].to_i][params[:y].to_i]
+    Rails.logger.debug "attempting to update board #{@id}"
+    row = params[:x].to_i
+    col = params[:y].to_i
+    value = @game.board[row][col]
     if value != ''
       Rails.logger.debug "attempted to update a board value that was already claimed - #{@id} #{row} #{col} current value #{value} "
       render json: { error: "Invalid move" }, status: :conflict
@@ -35,7 +38,7 @@ class GamesController < ApplicationController
       render json: { error: "Game is over" }, status: :forbidden
       return
     end
-    @game.board[params[:x].to_i][params[:y].to_i] = params[:player]
+    @game.board[row][col] = params[:player]
     @game.nextTurn = @game.nextTurn == 'X' ? 'O' : 'X'
     maybe_winner = helpers.determine_if_winner @game.board
     Rails.logger.debug "maybe winner #{maybe_winner}"
@@ -66,9 +69,10 @@ class GamesController < ApplicationController
 
   # PATCH/PUT /games/1
   def update
-    update_with= params.require(:game).permit(:playerO)
+    Rails.logger.debug "Someone is trying to join game #{@id}"
+    update_with = params.require(:game).permit(:playerO)
     if @game.playerO != nil
-      render json: {error: "Game already has two players"}, status: :conflict
+      render json: { error: "Game already has two players" }, status: :conflict
       return
     end
     if @game.update(update_with)
