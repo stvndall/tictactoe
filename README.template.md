@@ -11,6 +11,16 @@
 
 Beacuse I still don't know ember and rails, I will not start off with testing, and rather looking for feedback in the API / output. Once I understand more about the frameworks I will retrospectively add more tests
 
+
+## What I would want to do with more time
+
+1. More unit test coverage - I like testing as I'm going - but this is POC land
+2. Better Error handling
+3. Better logging - Both what is being logged, and the logging sinks
+4. Update the data schema
+5. Convert to web sockets (Action Cabels in rails I think)
+
+  
 ## Documentation
 
 ### Create a new game
