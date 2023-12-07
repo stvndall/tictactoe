@@ -1,0 +1,23 @@
+{{#if @showBreak}}
+  <md-divider></md-divider>
+{{/if}}
+<md-list-item>
+  <md-chip-set>
+    <md-assist-chip label={{@name}} >
+      <md-icon slot="icon">Joystick</md-icon>
+    </md-assist-chip>
+    <md-assist-chip label={{@playerX}} >
+      <md-icon slot="icon">person</md-icon>
+    </md-assist-chip>
+    {{#if @playerO}}
+      <md-assist-chip label={{@playerO}} >
+        <md-icon slot="icon">person</md-icon>
+      </md-assist-chip>
+    {{/if}}
+    {{#if @winner}}
+      <md-assist-chip label={{@winner}} >
+        <md-icon slot="icon">Trophy</md-icon>
+      </md-assist-chip>
+    {{/if}}
+  </md-chip-set>
+</md-list-item>

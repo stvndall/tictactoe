@@ -1,0 +1,22 @@
+<div class="game-container">
+  {{#if this.gameState.gameOver}}
+    <div class="game-over">
+      <div class="game-over-message">
+        {{#if this.gameState.isDraw}}
+          It's a draw!
+        {{else}}
+          {{this.gameState.winner}} wins!
+        {{/if}}
+      </div>
+      <GameBoard::StartNewButton />
+    </div>
+  {{else}}
+    <GameBoard::StartNewButton />
+    <GameBoard::Board @board={{this.board}} />
+    <div>
+      <h2>Player 1: {{this.gameState.nameX}}</h2>
+      <h2>Player 2: {{this.gameState.nameO}}</h2>
+      <h2 class="shoutout">Next Turn: {{this.gameState.nextTurn}}</h2>
+    </div>
+  {{/if}}
+</div>

@@ -1,0 +1,4 @@
+{{!--<md-filled-button type="button" class={{this.className}} {{on "click" this.tryClaim}}>--}}
+{{!--  {{this.cell.ownedBy}}--}}
+{{!--</md-filled-button>--}}
+<div class="cell {{if @cell.ownedBy @cell.ownedBy 'active'}}" {{on "click" this.tryClaim}}>{{@cell.ownedBy}}</div>

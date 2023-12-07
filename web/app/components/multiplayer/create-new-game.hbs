@@ -1,0 +1,9 @@
+<div class="border-control">
+  <h2>CREATE A NEW GAME</h2>
+  <div>
+
+    <md-outlined-text-field label="Game Name" id="multiplayer_gameName" {{on "input" this.handleInput}} />
+    <md-outlined-text-field label="Your Name" id="multiplayer_playerXName" {{on "input" this.handleInput}}/>
+    <md-filled-button {{on "click" this.createGame}} >Create New Game</md-filled-button>
+  </div>
+</div>

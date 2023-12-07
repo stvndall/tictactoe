@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD={{password}}
+      - POSTGRES_USER={{username}}
+    volumes:
+      - ./data:/var/lib/postgresql/data
+  api:
+      image: registry.digitalocean.com/stevenregistry/assessment:rails
+      environment: 
+        - SECRET_KEY_BASE={{keybase}}
+        - API_DATABASE_USERNAME={{username}}
+        - API_DATABASE_PASSWORD={{password}}
+        - API_DATABASE_HOST=postgres
+        - API_DATABASE_PORT=5432 
+  web:  
+      image: registry.digitalocean.com/stevenregistry/assessment:ember
+  ingress:
+    image: nginx:alpine
+    ports: [80:80, 443:443]
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /opt/certs:/etc/ssl/certs/:ro
+

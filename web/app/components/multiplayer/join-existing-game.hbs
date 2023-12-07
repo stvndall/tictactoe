@@ -1,0 +1,8 @@
+<div class="border-control">
+  <h2>JOIN AN EXISTING GAME</h2>
+  <div>
+    <md-outlined-text-field label="Game Id" id="multiplayer_gameid" {{on "input" this.handleInput}} />
+    <md-outlined-text-field label="Player Name" id="multiplayer_player_name" {{on "input" this.handleInput}} />
+    <md-filled-button {{on "click" this.joinGame}} >Join Game</md-filled-button>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<h1>Welcome to tic-tac-toe multiplayer!</h1>
+<GameBoard::Board @board={{this.board}}>
+  <div {{did-insert this.mountedBoard}} >
+    <h3>gameId : {{@gameId}}</h3>
+    <h3>You are: {{@player}}</h3>
+    <h3>PlayerX: {{this.playerX}}</h3>
+    <h3>PlayerO: {{this.playerO}}</h3>
+    <h3>Next Turn: {{this.nextTurn}}</h3>
+    {{#if this.winner}}
+      <h1 class="shoutout">Winner: {{this.winner}}</h1>
+      <LinkTo @route="multiplayer">go back</LinkTo>
+    {{/if}}
+    {{#if this.isDraw}}
+      <h1 class="shoutout">It's a draw!</h1>
+      <LinkTo @route="multiplayer">go back</LinkTo>
+    {{/if}}
+  </div>
+
+</GameBoard::Board>

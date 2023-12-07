@@ -1,7 +1,8 @@
-{{page-title "Web"}}
-
-{{! The following component displays Ember's default welcome message. }}
-<WelcomePage />
-{{! Feel free to remove this! }}
-
-{{outlet}}
+<div class="my-stylish-navbar">
+  <LinkTo @route="multiplayer">Play Together Over The Web</LinkTo>
+  <LinkTo @route="index">Play Together Locally</LinkTo>
+</div>
+<div class="break"></div>
+<div class="game-container">
+  {{outlet}}
+</div>
