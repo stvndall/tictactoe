@@ -11,7 +11,7 @@ module('Integration | Component | recent-games/game-entry', function (hooks) {
     // Handle any actions with this.set('myAction', function(val) { ... });
 
     await render(
-      hbs`<RecentGames::GameEntry @gameName="name" @playerX="playerX"  />`,
+      hbs`<Multiplayer::RecentGames::GameEntry @gameName="name" @playerX="playerX"  />`,
     );
     assert.equal(
       this.element.querySelectorAll('md-assist-chip').length,
@@ -24,7 +24,7 @@ module('Integration | Component | recent-games/game-entry', function (hooks) {
     // Handle any actions with this.set('myAction', function(val) { ... });
 
     await render(
-      hbs`<RecentGames::GameEntry @name="name" @playerX="playerX" @playerO="playerO" @winner="winner"  />`,
+      hbs`<Multiplayer::RecentGames::GameEntry @name="name" @playerX="playerX" @playerO="playerO" @winner="winner"  />`,
     );
     const chips = this.element.querySelectorAll('md-assist-chip');
     assert.equal(chips.length, 4, 'should have 4 chips');
