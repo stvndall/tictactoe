@@ -1,5 +1,5 @@
 <h1>Welcome to tic-tac-toe multiplayer!</h1>
-<Board @board={{this.board}}>
+<GameBoard::Board @board={{this.board}}>
   <div {{did-insert this.mountedBoard}} >
     <h3>gameId : {{@gameId}}</h3>
     <h3>You are: {{@player}}</h3>
@@ -16,4 +16,4 @@
     {{/if}}
   </div>
 
-</Board>
+</GameBoard::Board>

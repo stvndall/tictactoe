@@ -4,7 +4,7 @@
       {{#if (not-eq index 0)}}
         <md-divider></md-divider>
       {{/if}}
-      <RecentGames::GameEntry @name={{item.name}} @playerX={{item.playerX}} @playerO={{item.playerO}}
+      <Multiplayer::RecentGames::GameEntry @name={{item.name}} @playerX={{item.playerX}} @playerO={{item.playerO}}
                               @winner={{item.winner}} />
     {{/each}}
   </md-list>

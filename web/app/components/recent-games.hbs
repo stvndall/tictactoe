@@ -1,9 +1,0 @@
-<h2>RECENT GAMES</h2>
-{{#if this.loaded}}
-  <h3>GAMES IN PROGRESS</h3>
-  <RecentGames::List @list={{this.inProgress}} @ifEmpty="There are no games in progress" />
-  <h3>MOST RECENT COMPLETED GAMES</h3>
-  <RecentGames::List @list={{this.completed}} @ifEmpty="There are either no games in a completed state, or too many in progress" />
-{{else}}
-  <p>Loading games</p>
-{{/if}}
