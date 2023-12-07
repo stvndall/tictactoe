@@ -1,5 +1,9 @@
 # tic tac toe
 
+## **Note**
+I have made a restructuring change since the official assessment handover. This is because I didn't like having so much on the same Layer. 
+The official commit at the point of handover is `assessmentsumbitted` -> `git checkout assessmentsumbitted`
+
 *Normally I would upload the PDF, but this will be a public repo, and I don't want to give away the question, or requirement*
 
 ## Scope
